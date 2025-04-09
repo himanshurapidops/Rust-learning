@@ -1,0 +1,65 @@
+- why rust don't have http module inbuilt
+
+- this 
+
+
+
+
+
+
+
+-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+- two varialbe have same value have different location to store that same value 
+
+- when we change the value of the primitive data then it will change at the same address where the older value is stored
+  println!("{}", std::ptr::eq(&u1,&u2));   to comapre the variable to check are theuy point to same thing or not
+
+-  let maybe_num: Option<i32> = Some(10); let maybe: Option<String> = None;
+   rust dont have null pointer but instead we have this
+   if let Some(val) = maybe_num {
+    println!("{}", val);
+}
+
+- drop() for manual drop 
+
+- Rust is a statically typed language, which means that the type of a variable must be known at compile-time.
+  In Rust, type inference is used to determine the type of a variable based on its initial value.
+  let x = 5; // x is inferred to have type i32
+
+- box , refcell , rc , unsafe
+
+- fn example() {
+    let s = String::from("hello");
+    print_str(&s);
+    let r = &mut s; // ⚠️ Will fail if &s is still active
+    r.push_str(" world");
+}
+------------------------------------------------------------------------------------
+_1 = String::from("hello");     // Allocate String, move into _1 (s)
+_2 = &_1;                       // Borrow immutably
+call print_str(_2);             // Use the borrow
+// _2's lifetime ends here IF compiler can see it's not used again
+_3 = &mut _1;                   // Mutable borrow (fails if _2 is still alive)
+call push_str(_3, " world");
+-------------------------------------------------------------------------------------
+
+MIR - Mid-level Intermediate Representation
+
+----------------------------------------------
+RUSTC_LOG=rustc_mir rustc your_file.rs
+
+-----------------------------------------------
+cargo install cargo-binutils
+rustup component add llvm-tools-preview
+
+cargo rustc -- --emit=mir
+------------------------------------------------
+
+// rustc main.rs --emit=thin-link-bitcode 
+// rustc main.rs --emit=llvm-ir
+// rustc main.rs --emit=obj
+// rustc main.rs --emit=link
+// rustc main.rs --emit=asm
+// rustc main.rs --emit=llvm-bc
+
