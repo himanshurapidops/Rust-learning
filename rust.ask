@@ -63,3 +63,24 @@ cargo rustc -- --emit=mir
 // rustc main.rs --emit=asm
 // rustc main.rs --emit=llvm-bc
 
+
+
+
+
+Rust library is a collection of pre-written code that can be used in your program.
+but they are not pre-compiled and need to be downloaded and compiled separately. 
+
+- so rust dont have stable ABI , cause differnet compiler version may create different binary files so two different program may have different binary files. 
+ which are not compatable.
+
+- You can’t safely dynamically link two Rust crates unless they’re compiled with the same compiler version and exactly matching settings.
+
+You can't build a plugin system with "drop-in" .so files that other programs load unless you use the C ABI, which forces you to abandon Rust types and ergonomics.
+
+
+-------------------------------------------------------------------------------
+
+gcc -0 main  ./main.c
+
+compile -> objs  .o file
+link -> exe(lib)
