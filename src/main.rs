@@ -26,7 +26,9 @@
 
 // }
 
-use std::io;
+// use std::io;
+
+use std::any::type_name_of_val;
 
 fn main() {
     // let a = [1, 2, 3, 4, 5];
@@ -47,12 +49,55 @@ fn main() {
     // let element = a[index];
 
     // println!("The value of the element at index {index} is: {element}");
+    
+    
+    // let g = 10.5;
 
-    let g = 10.0/5;
-    println!("{}", g);
+    // println!("{:b}", g as i32);
 
 
 
+    // let x = 5;
+    // println!("x: {}", x);
+    // let x = x + 1;
+    // println!("x: {}", x);
+    // let x = x * 2;
+    // println!("x: {}", x);
+
+
+    // let c = "heeloworld";
+
+    // println!("{}", type_name_of_val(&c));
+
+    let s = String::from("hello");
+
+    println!("{}", type_name_of_val(&s));
+    
+    let s = s + " okay  " ;
+
+    let a = type_name_of_val(&s);
+
+    println!("{}", a);
+
+//    let f =  s.char_indices().by_ref();
+
+//    println!( "{:?}", f);
+
+let c = String::from("hello");
+let b = String::from("world");
+
+// let t = "yes";
+// let y = "no";
+
+println!("{}", c + &b);
+
+    // println!("{}",a);
+
+    // let add = Add::add( );
+
+
+    //how to add two slice
+    
 
 }
 

@@ -63,6 +63,9 @@ cargo rustc -- --emit=mir
 // rustc main.rs --emit=asm
 // rustc main.rs --emit=llvm-bc
 
+//RUSTFLAGS="-Zunpretty=mir" cargo rustc
+
+
 
 
 
@@ -84,3 +87,108 @@ gcc -0 main  ./main.c
 
 compile -> objs  .o file
 link -> exe(lib)
+
+
+_______________________________________________________________________________
+
+
+const and let are immutable  but we can make const gobal and const get replaced wherever it is used at compile time;
+
+_______________________________________________________________________________
+
+String and &str (string slice) are different String is struct and &str is pointer to string slice, str are immutable 
+
+_______________________________________________________________________________
+
+When we say a value’s lifetime is borrowed, like in:
+
+let s: &str = "hello";
+
+It means:
+
+    [s] does not own the memory it points to.
+
+    [s] is only allowed to use the string "hello" for a certain period of time, enforced by lifetimes.
+
+    Someone else (usually the compiler or a String object) owns that memory.
+
+    Rust guarantees that s cannot outlive the thing it points to.
+
+_______________________________________________________________________________
+
+For let s: &str = "hello";:
+Concept	Details
+Ownership	❌ No — it doesn't own "hello"
+Lifetime	Borrowed — compiler ensures it's valid for enough time
+Memory Location	Stack (fat pointer) + Static (read-only memory)
+Drop Behavior	❌ s does not deallocate or clean anything
+
+------------------------------------------------------------------------------
+
+Return &'static str (only for string literals)  
+
+If you’re returning a reference to a string literal (which lives forever), you can do this:
+
+fn get_str() -> &'static str {
+    "Hi"  // ✅ string literals live forever, safe to return
+}
+
+fn main() {
+    let result = get_str();
+    println!("{}", result);
+}
+
+------------------------------------------------------------------------------
+
+constant and immutable variable is stored in static memory 
+
+in case of &str the fat pointe stored in stack.
+
+mutable variable is stored in stack memory
+
+__________________________________________________________________________________
+  
+to see how much memeory process is useing --> cat /process/:pid/status | grep VmSize grep VmRSS
+                                          --> cat /process/:pid/maps 
+
+_______________________________________________________________________________
+
+enums are nothing but the largest memeory block obtained by the data types which are defined in enum
+
+_______________________________________________________________________________
+
+pub enum Option<T> {
+    
+    None , 
+    Some(T)
+}
+
+this above enum 
+------------------------------------------------------------------------------------
+
+Box<i32>
+
+
+Box<T> is a smart pointer to a heap-allocated value of type T. It is a thin pointer, it stores the values which is provided here 
+i32 inside heap and pointer of that location at the stack.
+
+Rc<vec<i32>>
+
+
+Rc<T> is a reference counted pointer to a value of type T. It is a smart pointer that allows multiple ownership of the value.
+It is a thin pointer, so the memory will deallocated only when all the references are dropped.
+
+
+Arc<T> is an atomic reference counted pointer to a value of type T. It is a smart pointer that allows multiple ownership of the value.
+It is a thick pointer, so the memory will not be deallocated until all the references are dropped.
+
+RefCell<T> is a smart pointer to a value of type T. It is a thin pointer, so the memory will deallocated only when all the references are dropped.
+It is a smart pointer that allows mutable access to the value through a reference to the inner value.
+
+UnsafeCell<T> is a smart pointer to a value of type T. It is a thin pointer, so the memory will deallocated only when all the references are dropped.
+It is a smart pointer that allows mutable access to the value through a reference to the inner value.
+
+RefMut<T> is a smart pointer to a value of type T. It is a thin pointer, so the memory will deallocated only when all the references are dropped.
+
+Mutex<T> is a smart pointer to a value of type T. It is a thin pointer, so the memory will deallocated only when all the references are dropped.    
+
