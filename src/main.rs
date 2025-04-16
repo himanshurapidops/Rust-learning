@@ -1,178 +1,101 @@
 
-// #[derive(Debug)]
-// struct User {
-//     id: u32,
-//     name: String,
-//     active: bool,
-// }
-
-// fn main() {
-  
-//   let mut  x = 10;
-
-//   println!("{}", x);
-
-//   x = 20;
-  
-//   println!("{}", x);
-
-//   let x = false;
-
-//   println!("{}", x);
-  
-
-
-
-
-// }
-
-// use std::io;
-
-use std::any::type_name_of_val;
 
 fn main() {
-    // let a = [1, 2, 3, 4, 5];
+    // let x = "what is this";     // x: &'static str
+    // println!("{}", x);          // ✅ prints fine
 
-    // println!("Please enter an array index.");
-
-    // let mut index = String::new();
-
-    // io::stdin()
-    //     .read_line(&mut index)
-    //     .expect("Failed to read line");
-
-    // let index: usize = index
-    //     .trim()
-    //     .parse()
-    //     .expect("Index entered was not a number");
-
-    // let element = a[index];
-
-    // println!("The value of the element at index {index} is: {element}");
+    // let y = &x;  
+    // println!("{:p}", x);           // y: &&'static str (ref to ref)
+    // println!("{:p}", y); 
     
+    // let z = &y;         // ✅ prints fine
+
+    // println!("{:p}", &&&&z);          // ✅ still prints fine
+
+
+    // let s = String::from("hello");
     
-    // let g = 10.5;
-
-    // println!("{:b}", g as i32);
-
-
-
-    // let x = 5;
-    // println!("x: {}", x);
-    // let x = x + 1;
-    // println!("x: {}", x);
-    // let x = x * 2;
-    // println!("x: {}", x);
+    // println!( "{}", *s.as_ptr());
+    // println!( "{:p}", &s);
+    // change(& s);
 
 
-    // let c = "heeloworld";
+    // unsafe {
+    //     // let r1 = &s as *const String;
+    //     // let r2 = &s as *const String;
+    //     // println!("{}", r1 == r2);
 
-    // println!("{}", type_name_of_val(&c));
+    //     println!( "{}", *s.as_ptr() as char)
 
-    let s = String::from("hello");
+    //     // Ha.... Ha.... Ha... this feels like old 
+     
+    // }
 
-    println!("{}", type_name_of_val(&s));
-    
-    let s = s + " okay  " ;
+    let a = 45 ;
 
-    let a = type_name_of_val(&s);
-
+    println!("{:p}", &a);
     println!("{}", a);
-
-//    let f =  s.char_indices().by_ref();
-
-//    println!( "{:?}", f);
-
-let c = String::from("hello");
-let b = String::from("world");
-
-// let t = "yes";
-// let y = "no";
-
-println!("{}", c + &b);
-
-    // println!("{}",a);
-
-    // let add = Add::add( );
-
-
-    //how to add two slice
     
 
+
+    // let mut x=String::from("i");    // x is mutable referneceD to the String(struct)
+    // println!("{}", x.capacity());            // y is reference to  mutable refernceD to the String(struct)
+
+    // unsafe {
+    //     println!("{}", x.as_ptr() as u8 as char);
+    // }
+    // let mut y = &mut x;  
+    // println!("{}",y.capacity());
+    
+    // println!("{:p}", y);
+    // y.push_str("g");                // y can access the String's value through the borrowing x's mutable referenceD of the String
+    // println!("{}",y.capacity());
+    // println!("{:p}", y);
+    // println!("{}", y);
+    // let z=&mut y;
+    // z.push_str(" end");
+    // println!("{}",z.capacity());
+    // println!("{}", z);
+    // println!("{}", x);
+
+    let mut my_string = Vec::from("Hi ! ".as_bytes());
+
+    println!("{:?}", my_string[1]);
+
+    println!("{:p}", &my_string[1]);
+
+    println!("{:p}", &my_string[1]);
+
+    my_string.extend_from_slice("Himanshu is here".as_bytes());
+
+    println!("--------------------------------------");
+
+    println!("{:p}", &my_string[1]);
+
+    println!("{:p}", &my_string[1]);
+    println!("{:?}", my_string);
+
+    println!("--------------------------------------");
+
+    let  d   = &my_string[1];// can i change the value through the owership of perticular element in the vector ?   and can it be now accesible in vector
+    println!("{:p}", d);
+
+    for i in my_string.iter() {
+        println!("{:p}", i);
+    }
+
+    println!();
+
+    let result = String::from_utf8(my_string).unwrap();
+    println!("{}", result);
 }
 
-// fn main2() {
-//       let mut x = 10;
-//     println!("{} 0", x);
-//     println!("{:p} 1", &x);  // :p prints the address
 
-//     let y: &mut i32 = &mut x; 
-//     *y = 20;
 
-//     println!("{} 2", *y); 
-//     println!("{:p} 3", y);
-//     println!("{} 3.1", y); // i think if you are poviding the address and you print the value like this {}  rust will automatically convert the address to the value
-//     println!("{:p} 4", &y);
-//     println!("{} 4.1", &y);
-//     println!("{:p} 5", *&y);
-//     println!("{} 6", *&y);
-//     println!("{:p} 7.1", &*y);
-//     println!("{} 7.2", &*y);
-  
-//     let z = &y;
-
-//     //print the address too
-
-//     println!("{:p} 7", y);
-//     println!("{:p} 8", &y);
-//     println!("{} 9", *&z);
-//     println!("{:p} 10", z);
-
-//     println!("{:p} {} 11",&y, *y);
-//     println!("{:p} {:p} 12",&z, *z);
+// fn change(some_string: & String) {
+//     println!( "{:p}", some_string);
+//     // some_string.push_str(", world");
+//     println!( "{:p}", some_string);
+//     println!("{}", some_string);
     
-//     //When printing a reference with {}, Rust will automatically dereference it (if it implements Display) — which is what you're observing..
-
-
-// }
-
-
-
-// fn main3() {
-
-//     #[derive(Debug)]
-//     struct Point {
-//         x: i32,
-//         y: i32,
-//     }
-
-//     let point = Point { x: 5, y: 20 };
-//     println!("{:?}", point);
-//     println!("{:b}", point.x );
-//     println!("{:o}", point.x);
-//     println!("{:x}", point.x);
-//     println!("{:X}", point.x);
-//     println!( "{:?}", point.x);
-//     println!("{:e}", point.x);
-//     println!("{:E}", point.x);
-
-//     println!("{:b}", point.y);
-    
-//     let user = User {
-//         id: 1,
-//         name: String::from("Himanshu"),
-//         active: true,
-//     };
-//     println!("{} {} {}", user.name, user.id, user.active);
-//     println!("{:#?}", user);
-
-//     // println!("{:?}", ) // {:?} is used to print the struct
-// }
-
-
-// fn main4() {
-//     let mut x = 10;
-//     let y = &mut x;
-//     let z = y;
-//     println!("{}", z);
-// }
+//     }       
