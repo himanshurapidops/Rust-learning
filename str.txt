@@ -1,0 +1,33 @@
+let hello : &'static str = "Hello World";
+
+let hello = "Hello World";
+
+-->  so string literal is stored in static memory automatically, it is just syntactic sugar for static lifetime which tells compiler to store it in static memory and which is also known as static lifetime means it is valid for the entire program. It is in compiled binary.
+
+
+
+let text = r#"Hello " raja ji" world"#; // raw string literal
+
+
+let http = b"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n";
+
+--> here 'b' slice of bytes which is used to deal with network protocol which expect byte squence.
+
+
+__________________________________________________________________________________________
+
+
+RAII
+
+resource acquisition is initialization and resource release is deinitialization
+
+What is resource ??
+
+ex .   Heap allocated memory 
+       Newtork Sockets
+       File Handling 
+       Database Handling
+       Mutexes 
+       Threads
+
+

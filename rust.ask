@@ -27,6 +27,25 @@
   In Rust, type inference is used to determine the type of a variable based on its initial value.
   let x = 5; // x is inferred to have type i32
 
+    let a = "Hello"; // any direct string in the rust is a string slice &str
+
+    let b = String::from(a);
+
+    // println!( "{:}", &a);
+
+    println!( "{:p}", &a);
+
+    println!( "{:p}", &b);
+
+    println!("{}", type_name_of_val(&a));
+
+    println!("{}", type_name_of_val(&b));
+
+
+
+    let b = String::from(a);
+
+    println!("{}", b);
 - box , refcell , rc , unsafe
 
 - fn example() {
@@ -90,7 +109,6 @@ link -> exe(lib)
 
 
 _______________________________________________________________________________
-
 
 const and let are immutable  but we can make const gobal and const get replaced wherever it is used at compile time;
 
@@ -192,3 +210,49 @@ RefMut<T> is a smart pointer to a value of type T. It is a thin pointer, so the 
 
 Mutex<T> is a smart pointer to a value of type T. It is a thin pointer, so the memory will deallocated only when all the references are dropped.    
 
+_________________________________________________________________________________________________________________________________________
+
+let mut x = String::from("one");
+x = String::from("two"); // 🔥 drop("one") happens here
+
+
+_1 = String::from("one");
+_2 = String::from("two");
+drop(_1);         // drop old value BEFORE assigning new one
+_1 = _2;
+
+
+----------------------------------------------------------------------------------------------------
+
+References (&T) are just pointers:
+
+let s = String::from("hi");
+let r1 = &s;  // immutable reference
+let r2 = r1;  // r1 is still usable — it's Copy!
+
+    &T (immutable reference) is Copy
+
+    It means: you can make multiple references like r1, r2, etc.
+
+    They're just pointing to the same data — no ownership is taken.
+
+✅ So &T is Copy — you can copy it around easily.
+But &mut T (mutable reference) is not Copy.
+
+Because:
+
+    You can only have one mutable reference at a time (Rust's safety rule)
+
+    Allowing multiple copies of &mut T would break the rule
+
+let mut x = 10;
+let r1 = &mut x;
+// let r2 = r1; ❌ `r1` is moved, because &mut T is not Copy
+
+So:
+
+    &mut T is not Copy
+
+    &T is Copy
+
+    ------------------------------------------------------------------------------
