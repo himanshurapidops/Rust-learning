@@ -256,3 +256,19 @@ So:
     &T is Copy
 
     ------------------------------------------------------------------------------
+
+    so when we create a string using the String::from("hello") this create whole new copy of the "hello" string in heap and assign the first letter's address to the ptr of the struct String. and "hello" is stored in the static memory block.
+
+
+----------------------------------------------------------------------------------------------------------------    
+Because slice is declared &str, Rust does an automatic Deref coercion:
+
+From &String → &str (calls String::deref under the hood).
+
+The resulting &str is a fat pointer:
+
+data_ptr: points to the first byte of the heap buffer
+
+length: number of bytes in “Rustacean”
+
+That fat pointer is stored in the local variable slice, which lives on the stack.
